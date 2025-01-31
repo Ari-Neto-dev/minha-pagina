@@ -7,9 +7,9 @@ const CACHE_NAME = 'my-cache-v1';
 const urlsToCache = [
   '/',
   '/index.html',
-  '/main.js',
+  // '/main.js',
   '/logo192.png',
-  '/styles.css',
+  // '/styles.css',
 ];
 
 // Quando o Service Worker é instalado, faz o cache dos arquivos
