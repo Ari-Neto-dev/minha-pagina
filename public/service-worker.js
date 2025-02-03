@@ -1,17 +1,16 @@
-
 /* eslint-disable no-restricted-globals */
 
-// public/service-worker.js
 const CACHE_NAME = 'my-cache-v1';
 const urlsToCache = [
   '/',
   '/index.html',
   '/logo192.png',
   '/logo512.png',
-  '/static/js/main.js', // Inclua o caminho correto para o JS
-  '/static/css/main.css' // Inclua o caminho correto para o CSS
+  '/static/js/main.js', // Verifique o caminho correto para o JS
+  '/static/css/main.css' // Verifique o caminho correto para o CSS
 ];
 
+// Instalar o Service Worker e armazenar os arquivos no cache
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
@@ -22,6 +21,7 @@ self.addEventListener('install', (event) => {
   );
 });
 
+// Interceptar requisições e servir do cache quando disponível
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)
@@ -34,15 +34,17 @@ self.addEventListener('fetch', (event) => {
   );
 });
 
+// Ativar o Service Worker e limpar caches antigos
 self.addEventListener('activate', (event) => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.forEach((cacheName) => {
+        cacheNames.map((cacheName) => {
           if (!cacheWhitelist.includes(cacheName)) {
-             caches.delete(cacheName); // Limpar caches antigos
+            return caches.delete(cacheName); // Limpar caches antigos
           }
+          return Promise.resolve(); // Evita que undefined entre no Promise.all
         })
       );
     })
