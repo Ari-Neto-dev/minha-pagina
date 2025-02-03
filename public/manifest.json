@@ -1,6 +1,7 @@
 {
   "short_name": "MinhaPWA",
   "name": "Minha Página React PWA",
+  "description": "Minha página PWA feita em React",
   "icons": [
     {
       "src": "/logo192.png",
