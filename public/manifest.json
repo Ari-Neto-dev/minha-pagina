@@ -1,6 +1,7 @@
 {
   "short_name": "MinhaPWA",
   "name": "Minha Página React PWA",
+  "description": "Uma página React configurada como PWA",
   "icons": [
     {
       "src": "/logo192.png",
@@ -11,9 +12,19 @@
       "src": "/logo512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
   "theme_color": "#007BFF",
   "background_color": "#ffffff"
