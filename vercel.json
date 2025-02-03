@@ -8,8 +8,13 @@
   ],
   "routes": [
     {
+      "src": "/manifest.json",
+      "dest": "/public/manifest.json"
+    },
+    {
       "src": "/(.*)",
       "dest": "/index.html"
     }
   ]
 }
+
