@@ -5,7 +5,7 @@ function App() {
     <div style={{ textAlign: "center", padding: "2rem", fontFamily: "Arial, sans-serif" }}>
       <h1 style={{ color: "#007BFF" }}>Bem-vindo à Minha Página React!</h1>
       <p>
-        Esta é uma página simples feita com React e uso PWA.
+        Esta é uma página simples feita com REACT e uso PWA.
       </p>
       <button
         style={{
