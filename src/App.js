@@ -17,7 +17,7 @@ function App() {
           borderRadius: "5px",
           cursor: "pointer",
         }}
-        onClick={() => alert("Olá, Neto!")}
+        onClick={() => alert("Olá, Amigo!")}
       >
         Clique aqui!
       </button>
