@@ -1,10 +1,10 @@
 /* eslint-disable no-restricted-globals */
 
-const CACHE_NAME = "my-cache-v4";  // Atualize o nome para forçar nova versão
+const CACHE_NAME = "my-cache-v5";  // Atualiza a versão do cache
 const urlsToCache = [
   "/",
   "/index.html",
-  "/manifest.json", // Adicionamos o manifesto para garantir o comportamento PWA
+  "/manifest.json", // Cache o manifest.json
   "/logo192.png",
   "/logo512.png",
   "/static/js/main.js",
@@ -23,38 +23,44 @@ self.addEventListener("install", (event) => {
 
 // Interceptar requisições e servir do cache quando possível
 self.addEventListener("fetch", (event) => {
+  // Trata as requisições de navegação
   if (event.request.mode === "navigate") {
-    // Sempre tenta servir a página principal, mesmo offline
     event.respondWith(
       caches.match("/index.html").then((cachedResponse) => {
-        return cachedResponse || fetch(event.request); // Se não tiver no cache, tenta pegar da rede
+        if (cachedResponse) {
+          return cachedResponse; // Serve a página do cache, se disponível
+        }
+
+        // Se não houver cache, tenta pegar da rede
+        return fetch(event.request);
       })
     );
     return;
   }
 
+  // Para outros tipos de requisição (JS, CSS, imagens), tenta buscar no cache
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        return cachedResponse; // Serve do cache se encontrado
+        return cachedResponse;  // Serve o conteúdo do cache
       }
 
-      // Tenta pegar da rede se não encontrar no cache
+      // Se não encontrado, tenta fazer o fetch e guardar no cache
       return fetch(event.request).then((response) => {
-        // Se a resposta for válida, coloca no cache para futuras requisições
         if (!response || response.status !== 200 || response.type !== "basic") {
           return response;
         }
 
         let responseClone = response.clone();
         caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseClone);
+          cache.put(event.request, responseClone);  // Coloca o novo conteúdo no cache
         });
 
         return response;
       });
     }).catch(() => {
-      return caches.match("/index.html"); // Fallback para index.html quando offline
+      // Caso haja erro no fetch, serve o index.html
+      return caches.match("/index.html");
     })
   );
 });
