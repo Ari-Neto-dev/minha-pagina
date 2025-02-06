@@ -17,7 +17,7 @@ function App() {
           borderRadius: "5px",
           cursor: "pointer",
         }}
-        onClick={() => alert("Olá, Amigos!Ari, Meu amor SARA")}
+        onClick={() => alert("Olá, Amigos!Ari, SARA")}
       >
         Clique aqui!
       </button>
