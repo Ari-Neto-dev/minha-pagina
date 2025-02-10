@@ -109,7 +109,7 @@ function App() {
           cursor: "pointer",
           marginBottom: "10px"
         }}
-        onClick={() => alert("Olá, Amigos! AMARELO Ari, Rafaella, Rafael, Natália, Nadia e meu amor Sara")}
+        onClick={() => alert("Olá, Amigos! Sigam as informações em tela")}
       >
         Clique aqui!
       </button>
