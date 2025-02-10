@@ -43,6 +43,9 @@
 // export default App;
 
 
+//
+
+
 import { useEffect, useState } from "react";
 
 function App() {
@@ -52,12 +55,6 @@ function App() {
 
   useEffect(() => {
     if ("serviceWorker" in navigator) {
-      // Remover qualquer SW antigo
-      navigator.serviceWorker.getRegistrations().then((registrations) => {
-        registrations.forEach((reg) => reg.unregister());
-      });
-
-      // Registrar o novo Service Worker
       navigator.serviceWorker
         .register("/service-worker.js")
         .then((reg) => {
@@ -66,15 +63,14 @@ function App() {
         .catch((err) => console.log("Erro ao registrar Service Worker:", err));
     }
 
-    // Verifica se o dispositivo é iOS
+    // Detectar iOS
     const isIOSDevice = /iPad|iPhone|iPod/.test(navigator.userAgent);
     const isStandalone = window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone;
-
     if (isIOSDevice && !isStandalone) {
       setIsIOS(true);
     }
 
-    // Detecta se o PWA pode ser instalado (para Android)
+    // Detectar opção de instalação para Android
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault();
       setDeferredPrompt(event);
@@ -100,7 +96,8 @@ function App() {
   return (
     <div style={{ textAlign: "center", padding: "2rem", fontFamily: "Arial, sans-serif" }}>
       <h1 style={{ color: "#007BFF" }}>Bem-vindo à Minha Página React!</h1>
-      <p>Esta é uma página simples feita com REACT e uso PWA.</p>
+      <p>Esta é uma página simples feita com React e configurada como PWA.</p>
+
       <button
         style={{
           padding: "10px 20px",
@@ -161,3 +158,4 @@ function App() {
 }
 
 export default App;
+
